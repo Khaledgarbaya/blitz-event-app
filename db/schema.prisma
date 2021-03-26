@@ -23,6 +23,8 @@ model User {
 
   tokens   Token[]
   sessions Session[]
+  events   Event[]
+  rsvps    Rsvp[]    @relation("Attendee")
 }
 
 model Session {
@@ -63,3 +65,34 @@ model Token {
 // enum TokenType {
 //   RESET_PASSWORD
 // }
+
+model Event {
+  id Int @id @default(autoincrement())
+
+
+  name        String
+  slug        String    @unique
+  description String?
+  content     String?
+  time        DateTime?
+  status      String    @default("draft")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  userId    Int
+  createdBy User   @relation(fields: [userId], references: [id])
+  rsvps     Rsvp[]
+}
+
+model Rsvp {
+  id Int @id @default(autoincrement())
+
+  attendeeId Int
+  attendee   User @relation(name: "Attendee", fields: [attendeeId], references: [id])
+
+  eventId Int
+  event   Event @relation(fields: [eventId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
