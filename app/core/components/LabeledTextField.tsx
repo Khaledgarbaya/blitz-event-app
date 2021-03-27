@@ -21,9 +21,11 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
       format: (value) => {
         if (props.type === "number") return Number(value)
         if (props.type === "datetime-local") {
-          console.log(value)
-          if (!(value instanceof Date)) return format(new Date(value), "yyyy-MM-dd'T'HH:mm:ss.SSS")
-          return format(utcToZonedTime(value, "etc/UTC"), "MM/dd/yyyy")
+          if (!value) return undefined
+          if (!(value instanceof Date)) {
+            return format(new Date(value), "yyyy-MM-dd'T'HH:mm:ss.SSS")
+          }
+          return format(utcToZonedTime(value, "etc/UTC"), "yyyy-MM-dd'T'HH:mm:ss.SSS")
         }
         return value
       },
@@ -32,7 +34,7 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
         if (props.type === "datetime-local") {
           const res = parse(value, "MM/dd/yyyy", new Date())
           if (isNaN(res.getTime())) {
-            return new Date(value).toISOString()
+            return new Date(value)
           }
           return res as any
         }

@@ -12,7 +12,7 @@ export const CreateEvent = z
       .nonempty("The slug field is required"),
     description: z.string().optional(),
     content: z.string().optional(),
-    time: z.string(),
+    time: z.date(),
   })
   .nonstrict()
 
@@ -28,6 +28,6 @@ export const UpdateEvent = z
       .nonempty("The slug field is required"),
     description: z.string().optional(),
     content: z.string().optional(),
-    time: z.string(),
+    time: z.date(),
   })
   .nonstrict()
