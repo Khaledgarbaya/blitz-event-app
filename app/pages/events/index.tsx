@@ -22,7 +22,7 @@ export const EventsList = () => {
       <ul>
         {events.map((event) => (
           <li key={event.id}>
-            <Link href={`/events/${event.id}`}>
+            <Link href={`/events/${event.slug}`}>
               <a>{event.name}</a>
             </Link>
           </li>
@@ -47,12 +47,6 @@ const EventsPage: BlitzPage = () => {
       </Head>
 
       <div>
-        <p>
-          <Link href="/events/new">
-            <a>Create Event</a>
-          </Link>
-        </p>
-
         <Suspense fallback={<div>Loading...</div>}>
           <EventsList />
         </Suspense>

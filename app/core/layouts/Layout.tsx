@@ -116,9 +116,9 @@ const Layout = ({ title, children }: LayoutProps) => {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
@@ -141,7 +141,7 @@ const Layout = ({ title, children }: LayoutProps) => {
       </nav>
 
       {/* <!-- content goes here --> */}
-      <div className="py-32 text-center">{children}</div>
+      <div className="max-w-6xl mx-auto p-8">{children}</div>
     </>
   )
 }

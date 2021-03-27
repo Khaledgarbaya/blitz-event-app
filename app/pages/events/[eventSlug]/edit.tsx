@@ -7,8 +7,8 @@ import { EventForm, FORM_ERROR } from "app/events/components/EventForm"
 
 export const EditEvent = () => {
   const router = useRouter()
-  const eventId = useParam("eventId", "number")
-  const [event, { setQueryData }] = useQuery(getEvent, { id: eventId })
+  const slug = useParam("eventSlug", "string")
+  const [event, { setQueryData }] = useQuery(getEvent, { slug })
   const [updateEventMutation] = useMutation(updateEvent)
 
   return (
@@ -35,7 +35,7 @@ export const EditEvent = () => {
                 ...values,
               })
               await setQueryData(updated)
-              router.push(`/events/${updated.id}`)
+              router.push(`/events/${updated.slug}`)
             } catch (error) {
               console.error(error)
               return {
