@@ -1,7 +1,47 @@
-import { Suspense } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getEvent from "app/events/queries/getEvent"
+import getCurrentUserRSVP from "app/rsvps/queries/getCurrentUserRSVP"
+import createRSVP from "app/rsvps/mutations/createRSVP"
+
+const RSVPButton = ({ eventId }) => {
+  const [rsvp] = useQuery(getCurrentUserRSVP, { eventId })
+  const [createRSVPMutation] = useMutation(createRSVP)
+  const [isGoing, setIsGoing] = useState(false)
+
+  useEffect(() => {
+    if (rsvp) {
+      setIsGoing(true)
+    }
+  }, [])
+
+  if (isGoing) {
+    return (
+      <button
+        type="button"
+        disabled
+        className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        Going
+      </button>
+    )
+  }
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        const newRsvp = await createRSVPMutation({ eventId })
+        if (newRsvp) {
+          setIsGoing(true)
+        }
+      }}
+      className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+    >
+      RSVP
+    </button>
+  )
+}
 
 export const Event = () => {
   const slug = useParam("eventSlug", "string")
@@ -40,12 +80,9 @@ export const Event = () => {
                 RSVPs
               </h2>
               <div className="mt-6 flex flex-col justify-stretch">
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  RSVP
-                </button>
+                <Suspense fallback="loading...">
+                  <RSVPButton eventId={event.id} />
+                </Suspense>
               </div>
             </div>
           </section>

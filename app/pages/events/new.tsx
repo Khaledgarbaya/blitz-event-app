@@ -19,7 +19,7 @@ const NewEventPage: BlitzPage = () => {
         onSubmit={async (values) => {
           try {
             const event = await createEventMutation(values)
-            router.push(`/events/${event.id}`)
+            router.push(`/events/${event.slug}`)
           } catch (error) {
             console.error(error)
             return {
