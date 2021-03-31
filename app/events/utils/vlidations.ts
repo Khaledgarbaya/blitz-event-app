@@ -26,8 +26,8 @@ export const UpdateEvent = z
         "Please enter a valid 'slug' consisting of letters, numbers,underscores or hyphens"
       )
       .nonempty("The slug field is required"),
-    description: z.string().optional(),
-    content: z.string().optional(),
-    time: z.date(),
+    description: z.string().nullable(),
+    content: z.string().nullable(),
+    time: z.date().nullable(),
   })
   .nonstrict()

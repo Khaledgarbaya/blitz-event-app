@@ -19,11 +19,11 @@ export const EventsList = () => {
 
   return (
     <div>
-      <ul>
+      <ul className="grid grid-cols-3 gap-4 mb-6">
         {events.map((event) => (
-          <li key={event.id}>
+          <li className="shadow-lg bg-gray-100 rounded-lg bg-white" key={event.id}>
             <Link href={`/events/${event.slug}`}>
-              <a>{event.name}</a>
+              <a className="block w-full h-full p-16">{event.name}</a>
             </Link>
           </li>
         ))}
@@ -46,10 +46,15 @@ const EventsPage: BlitzPage = () => {
         <title>Events</title>
       </Head>
 
-      <div>
-        <Suspense fallback={<div>Loading...</div>}>
-          <EventsList />
-        </Suspense>
+      <div className="p-8 bg-gray-100 min-h-screen">
+        <h1 className="text-4xl font-bold text-gray-900">Events</h1>
+        <section aria-labelledby="user-information" className="mt-6">
+          <div className="p-8 bg-white shadow sm:rounded-lg  min-h-screen space-y-2">
+            <Suspense fallback="Loading user info...">
+              <EventsList />
+            </Suspense>
+          </div>
+        </section>
       </div>
     </>
   )

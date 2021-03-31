@@ -14,11 +14,19 @@ const UserInfo = () => {
   if (currentUser) {
     return (
       <>
-        <div>
-          Connected User id: <code>{currentUser.id}</code>
-        </div>
+        <span>
+          Welcome: <code>{currentUser.name}</code>
+        </span>
+        <Link href={`/users/me`}>
+          <a
+            className="py-1 px-2 bg-purple-400 hover:bg-purple-300 text-gray-900 hover:text-gray-800 rounded transition duration-300"
+            href=""
+          >
+            Dashboard
+          </a>
+        </Link>
         <button
-          className="py-2 px-3 bg-purple-400 hover:bg-purple-300 text-gray-900 hover:text-gray-800 rounded transition duration-300"
+          className="py-1 px-2 bg-purple-400 hover:bg-purple-300 text-gray-900 hover:text-gray-800 rounded transition duration-300"
           onClick={async () => {
             await logoutMutation()
           }}
