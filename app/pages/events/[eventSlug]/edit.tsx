@@ -15,33 +15,37 @@ export const EditEvent = () => {
   return (
     <>
       <Head>
-        <title>Edit Event {event.id}</title>
+        <title>Edit Event {event.name}</title>
       </Head>
 
-      <div>
-        <h1>Edit Event {event.id}</h1>
-        <pre>{JSON.stringify(event)}</pre>
-
-        <EventForm
-          submitText="Update Event"
-          schema={UpdateEvent}
-          initialValues={event}
-          onSubmit={async (values) => {
-            try {
-              const updated = await updateEventMutation({
-                id: event.id,
-                ...values,
-              })
-              await setQueryData(updated)
-              router.push(`/events/${updated.slug}`)
-            } catch (error) {
-              console.error(error)
-              return {
-                [FORM_ERROR]: error.toString(),
-              }
-            }
-          }}
-        />
+      <div className="p-8 bg-gray-100 min-h-screen">
+        <h1 className="text-4xl font-bold text-gray-900">Edit Event: {event.name}</h1>
+        <section aria-labelledby="user-information" className="mt-6">
+          <div className="p-8 bg-white shadow sm:rounded-lg min-h-screen space-y-2">
+            <div className="max-w-3xl mx-auto">
+              <EventForm
+                submitText="Update Event"
+                schema={UpdateEvent}
+                initialValues={event}
+                onSubmit={async (values) => {
+                  try {
+                    const updated = await updateEventMutation({
+                      id: event.id,
+                      ...values,
+                    })
+                    await setQueryData(updated)
+                    router.push(`/events/${updated.slug}`)
+                  } catch (error) {
+                    console.error(error)
+                    return {
+                      [FORM_ERROR]: error.toString(),
+                    }
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </section>
       </div>
     </>
   )
