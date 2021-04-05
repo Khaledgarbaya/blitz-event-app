@@ -1,15 +1,15 @@
 import { Suspense } from "react"
 import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getEvent from "app/events/queries/getEvent"
 import updateEvent from "app/events/mutations/updateEvent"
 import { EventForm, FORM_ERROR } from "app/events/components/EventForm"
 import { UpdateEvent } from "app/events/utils/vlidations"
+import getUserEvent from "app/events/queries/getUserEvent"
 
 export const EditEvent = () => {
   const router = useRouter()
   const slug = useParam("eventSlug", "string")
-  const [event, { setQueryData }] = useQuery(getEvent, { slug })
+  const [event, { setQueryData }] = useQuery(getUserEvent, { slug })
   const [updateEventMutation] = useMutation(updateEvent)
 
   return (
