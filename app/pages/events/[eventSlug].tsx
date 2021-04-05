@@ -7,7 +7,7 @@ import createRSVP from "app/rsvps/mutations/createRSVP"
 import deleteRSVP from "app/rsvps/mutations/deleteRSVP"
 
 const RSVPButton = ({ eventId }) => {
-  const [rsvp] = useQuery(getCurrentUserRSVP, { eventId })
+  const [rsvp, { setQueryData }] = useQuery(getCurrentUserRSVP, { eventId })
   const [createRSVPMutation] = useMutation(createRSVP)
   const [deleteRSVPMutation] = useMutation(deleteRSVP)
   const [isGoing, setIsGoing] = useState(!!rsvp)
@@ -34,6 +34,7 @@ const RSVPButton = ({ eventId }) => {
           type="button"
           onClick={async () => {
             const deletion = await deleteRSVPMutation({ eventId })
+            setQueryData(null)
             if (deletion) {
               setIsGoing(false)
             }
@@ -66,6 +67,7 @@ const RSVPButton = ({ eventId }) => {
         type="button"
         onClick={async () => {
           const newRsvp = await createRSVPMutation({ eventId })
+          setQueryData(newRsvp)
           if (newRsvp) {
             setIsGoing(true)
           }

@@ -29,12 +29,22 @@ export const EventsList = () => {
         ))}
       </ul>
 
-      <button disabled={page === 0} onClick={goToPreviousPage}>
-        Previous
-      </button>
-      <button disabled={!hasMore} onClick={goToNextPage}>
-        Next
-      </button>
+      <div className="w-full flex justify-between">
+        <button
+          className="py-1 px-2 bg-purple-400 hover:bg-purple-300 text-gray-900 hover:text-gray-800 rounded transition duration-300"
+          disabled={page === 0}
+          onClick={goToPreviousPage}
+        >
+          Previous
+        </button>
+        <button
+          className="py-1 px-2 bg-purple-400 hover:bg-purple-300 text-gray-900 hover:text-gray-800 rounded transition duration-300"
+          disabled={!hasMore}
+          onClick={goToNextPage}
+        >
+          Next
+        </button>
+      </div>
     </div>
   )
 }

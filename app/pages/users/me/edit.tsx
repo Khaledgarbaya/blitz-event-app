@@ -18,9 +18,6 @@ const EditUser = () => {
           <title>Edit User {currentUser.name}</title>
         </Head>
         <div>
-          <h1>Edit User {currentUser.id}</h1>
-          <pre>{JSON.stringify(currentUser)}</pre>
-
           <UserForm
             submitText="Update Event"
             schema={UpdateCurrentUser}
@@ -50,7 +47,7 @@ const EditUser = () => {
 const EditCurrentUserPage: BlitzPage = () => {
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold text-gray-900">Edit</h1>
+      <h1 className="text-4xl font-bold text-gray-900">Edit Information</h1>
       <section aria-labelledby="user-information" className="mt-6">
         <div className="p-8 bg-white shadow sm:rounded-lg  min-h-screen space-y-2">
           <Suspense fallback="Loading user info...">
