@@ -2,6 +2,7 @@
   "name": "blitz-events-app",
   "version": "1.0.0",
   "scripts": {
+    "predev": "docker-compose up -d",
     "dev": "blitz dev",
     "start:production": "blitz start --port $PORT",
     "build": "blitz build",
